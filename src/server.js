@@ -1,5 +1,9 @@
 const jsonServer = require('json-server')
-const db = require('./db.json')
+const lowdb = require('lowdb');
+const FileSync = require('lowdb/adapters/FileSync');
+
+const adapter = new FileSync('db.json');
+const db = lowdb(adapter);
 
 const server = jsonServer.create()
 const router = jsonServer.router(db)
