@@ -1,4 +1,5 @@
 {
+  "type": "module",
   "name": "todos-json-server",
   "version": "0.0.1",
   "description": "",
@@ -14,6 +15,7 @@
   "license": "MIT",
   "dependencies": {
     "json-server": "^0.16.2",
-    "lowdb": "^6.0.1"
+    "lowdb": "^6.0.1",
+    "node-fetch": "^2.6.1"
   }
 }
