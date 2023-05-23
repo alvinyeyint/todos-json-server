@@ -1,27 +1,23 @@
-import jsonServer from 'json-server';
-import { Low } from 'lowdb'
-import { JSONFile } from 'lowdb/node'
+const jsonServer = require('json-server')
+const db = require('./db.json')
 
-import { fileURLToPath } from 'url';
-import { dirname } from 'path';
+const server = jsonServer.create()
+const router = jsonServer.router(db)
+const middlewares = jsonServer.defaults()
 
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = dirname(__filename);
+const PORT = 3001
+const DELAY = 300
 
-// Configure lowdb to write data to JSON file
-const adapter = new JSONFile(`${__dirname}/db.json`)
-const defaultData = { todos: [] }
-const db = new Low(adapter, defaultData)
+server.use(middlewares)
 
-const server = jsonServer.create();
-const router = jsonServer.router(`${__dirname}/db.json`);
-const middlewares = jsonServer.defaults();
+server.use((req, res, next) => {
+  setTimeout(() => {
+    next()
+  }, DELAY)
+})
 
-server.use(jsonServer.bodyParser);
-server.use(middlewares);
-server.use(router);
+server.use(router)
 
-const port = 3000;
-server.listen(port, () => {
-  console.log(`JSON Server is running on port ${port}`);
-});
+server.listen(PORT, () => {
+  console.log(`JSON Server is running on http://localhost:${PORT}`)
+})
