@@ -14,7 +14,7 @@ const defaultData = { todos: [] }
 const db = new Low(adapter, defaultData)
 
 const server = jsonServer.create();
-const router = jsonServer.router('./db.json');
+const router = jsonServer.router(`${__dirname}/db.json`);
 const middlewares = jsonServer.defaults();
 
 server.use(jsonServer.bodyParser);
